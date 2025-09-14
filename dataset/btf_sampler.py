@@ -1,8 +1,9 @@
 """
+file: dataset/btf_sampler
 Dynamic BTF → sample-pair generator
 ===================================
 
-⮑  Returns (x, y) pairs that a network can consume directly.
+  Returns (x, y) pairs that a network can consume directly.
 
     x = [u, v, θ_h, φ_h, θ_d, φ_d]   (float32, all ∈ [0,1])
     y = [R, G, B]                    (float32, linear, 0-1)
