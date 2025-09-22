@@ -360,7 +360,7 @@ def main():
         print(f"[INT8-REF:EXPORT] MAE={mae_gate:.6f}  PSNR={psnr_gate:.2f} dB")
         if mae_gate <= args.int8_ref_mae_max and psnr_gate >= args.int8_ref_psnr_min:
             save_dir = Path(args.export_int8_dir)
-            path = model.export_int8_package(save_dir, leaky_slope=0.2)
+            path = model.export_int8_package(save_dir, leaky_slope=0.0)
             print(f"[EXPORT] Int8 weights + manifest written to: {path}")
         else:
             print("[EXPORT] ABORTED: parity gate failed "

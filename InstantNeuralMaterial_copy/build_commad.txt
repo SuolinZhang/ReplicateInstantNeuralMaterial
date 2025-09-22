@@ -1,0 +1,13 @@
+unset PKG_CONFIG_PATH
+unset CMAKE_TOOLCHAIN_FILE
+unset VCPKG_ROOT
+export PKG_CONFIG_LIBDIR=/usr/lib64/pkgconfig:/usr/share/pkgconfig
+which pkg-config 
+pkg-config --variable pc_path pkg-config
+source /opt/rh/gcc-toolset-13/enable 
+export CUDA_HOME=/usr/local/cuda-12.9/
+export PATH="$CUDA_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="$CUDA_HOME/lib64:$LD_LIBRARY_PATH"
+cmake --preset linux-gcc -DCUDAToolkit_ROOT="$CUDA_HOME"
+cmake --build --preset linux-gcc-debug -j$(nproc)
+

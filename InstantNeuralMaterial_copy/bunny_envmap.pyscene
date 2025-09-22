@@ -1,0 +1,43 @@
+############################################################################
+# Curtain with Environment Map Example
+# Usage: Mogwai --scene bunny_envmap.pyscene
+############################################################################
+
+# Create materials - curtain material first to get ID 1 for neural material
+curtain_mat = Material('CurtainMaterial')
+curtain_mat.baseColor = float4(0.9, 0.6, 0.4, 1.0)
+curtain_mat.roughness = 0.2
+curtain_mat.metallic = 0.8
+
+# Add floor material (will get ID 2)
+floor = Material('Floor')
+floor.baseColor = float4(0.7, 0.7, 0.7, 1.0)
+floor.roughness = 0.1
+
+# Create geometry (bunny). The OBJ uses meters; adjust scaling as needed.
+obj_name = 'media/test_scenes/meshes/bunny_dense.obj'
+obj_path = obj_name
+bunnyMesh = TriangleMesh.createFromFile(obj_path)
+
+# Create mesh instances
+sceneBuilder.addMeshInstance(
+    sceneBuilder.addTriangleMesh(bunnyMesh, curtain_mat),
+    sceneBuilder.addNode('Bunny', Transform(scaling=float3(1.0, 1.0, 1.0), translation=float3(0, 0.1, 0)))
+)
+
+# Add floor plane
+floorMesh = TriangleMesh.createQuad()
+sceneBuilder.addMeshInstance(
+    sceneBuilder.addTriangleMesh(floorMesh, floor),
+    sceneBuilder.addNode('Floor', Transform(scaling=float3(10, 1, 10)))
+)
+
+# Add environment map
+sceneBuilder.envMap = EnvMap('media/test_scenes/envmaps/20050806-03_hd.hdr')
+
+# Create camera
+camera = Camera()
+camera.position = float3(0, 0.5, 1.5)
+camera.target = float3(0, 0.3, 0)
+camera.up = float3(0, 1, 0)
+sceneBuilder.addCamera(camera)

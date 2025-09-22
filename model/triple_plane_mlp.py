@@ -214,7 +214,7 @@ class TriplePlaneMLP(nn.Module):
         return (b0 | (b1 << 8) | (b2 << 16) | (b3 << 24)).astype(np.int32)
 
     @torch.no_grad()
-    def int8_reference_forward(self, x: torch.Tensor, leaky_slope: float = 0.2) -> torch.Tensor:
+    def int8_reference_forward(self, x: torch.Tensor, leaky_slope: float = 0.0) -> torch.Tensor:
         """
         CPU/torch reference of the integer GEMM chain for the MLP (features in float).
         Accepts raw x(…,6) or precomputed features(…, in_dim).
@@ -237,12 +237,15 @@ class TriplePlaneMLP(nn.Module):
             acc = Xq.to(torch.int32) @ Wq.t().to(torch.int32)
             y   = acc.to(torch.float32) * (s_a * s_w)
             if i < len(qls) - 1:
-                y = torch.nn.functional.leaky_relu(y, negative_slope=leaky_slope)
+                if leaky_slope == 0.0:
+                    y = torch.relu(y)
+                else:
+                    y = torch.nn.functional.leaky_relu(y, negative_slope=leaky_slope)
         return y.to(device0)
 
     # ---------- exports ----------
     @torch.no_grad()
-    def export_int8_package(self, out_dir, leaky_slope: float = 0.2) -> Path:
+    def export_int8_package(self, out_dir, leaky_slope: float = 0.0) -> Path:
         """
         Writes:
           - fc{i}_w_int8.npy : int8 weights (row-major)
