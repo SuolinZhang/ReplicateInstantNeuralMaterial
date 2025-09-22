@@ -17,7 +17,7 @@ pytorch
 
 ## Rendering
 ### Build Falcor
-The file is ready to build, more information in README.md under * InstantNeuralMaterial_copy * folder.
+The file is ready to build, more information in README.md under *InstantNeuralMaterial_copy* folder.
 
 The implementation was tested on RedHat 9
 ### Run
