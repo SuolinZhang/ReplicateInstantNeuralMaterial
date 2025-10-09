@@ -4,7 +4,7 @@ This is an unofficial replication of *Towards Comprehensive Neural Materials: Dy
 ## Components
 This project contains two parts: 
 1. a quantised MLP training network which can train a neural material from a BTF and export feature bundle
-2. render the neural material from utilising exported feature bundle in Falcor
+2. render the neural material from exported feature bundle in Falcor
 ## Training
 ###	Environment
 Python3.8
