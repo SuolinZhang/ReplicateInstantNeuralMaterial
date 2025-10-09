@@ -1,5 +1,5 @@
 # ReplicateInstantNeuralMaterial
-This is an unofficial replication of *Towards Comprehensive Neural Materials: Dynamic Structure-Preserving Synthesis with Accurate Silhouette at Instant Inference Speed*. The code of falcor implementation in this repo is adapted from git@github.com:Starry316/InstantNeuralMaterial.git.
+This is an unofficial replication of *Towards Comprehensive Neural Materials: Dynamic Structure-Preserving Synthesis with Accurate Silhouette at Instant Inference Speed*. The code of falcor implementation in this repo is adapted from https://github.com/Starry316/InstantNeuralMaterial
 
 ## Components
 This project contains two parts: 
